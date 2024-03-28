@@ -1,0 +1,4 @@
+clr/
+cmake-build-*/
+out/
+.idea/
