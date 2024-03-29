@@ -56,6 +56,3 @@ set_target_properties(dhost PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY ${OUTPUT_DIR}/bin
     RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR}/bin
 )
-
-add_executable(dhost-test main.cpp)
-target_link_libraries(dhost-test PRIVATE dhost nethost)
