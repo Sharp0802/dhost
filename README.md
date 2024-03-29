@@ -2,7 +2,31 @@
 
 A simple .NET native-host wrapper for C++
 
-## Sample
+## Limitations
+
+- Only supports .NET 5.0 or higher
+
+## How to build
+
+### Summary
+
+```shell
+$ mkdir build
+$ cd build
+$ cmake -DNETHOST_RUNTIME_IDENTIFIER="linux-x64" -DNETHOST_RUNTIME_VERSION="8.0.3" ../
+$ make # use what you configured with cmake
+```
+
+### CMake Variables
+
+> [!WARNING]
+> Target platform not altered even if mismatched with `NETHOST_RUNTIME_IDENTIFIER`.
+> To change target platform, Use cross-platform tools such as MINGW.
+
+- `NETHOST_RUNTIME_IDENTIFIER` : .NET RID (See [Catalog](https://learn.microsoft.com/en-us/dotnet/core/rid-catalog))
+- `NETHOST_RUNTIME_VERSION` : .NET Runtime Version (See [Version List](https://www.nuget.org/packages/runtime.linux-x64.Microsoft.NETCore.DotNetAppHost#versions-body-tab))
+
+## How to use (Sample)
 
 - clr.csproj
 
@@ -37,6 +61,9 @@ internal static class Program
 ```
 
 - main.cpp
+
+> [!WARNING]
+> When specifying type, Assembly qualified name is required.
 
 ```c++
 #include "library.h"
