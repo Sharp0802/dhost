@@ -1,10 +1,9 @@
 # DHost
 
+> [!WARNING]
+> Currently, Only .NET 5.0 or higher is supported.
+
 A simple .NET native-host wrapper for C++
-
-## Limitations
-
-- Only supports .NET 5.0 or higher
 
 ## How to build
 
@@ -62,7 +61,7 @@ internal static class Program
 
 - main.cpp
 
-> [!WARNING]
+> [!IMPORTANT]
 > When specifying type, Assembly qualified name is required.
 
 ```c++
