@@ -7,23 +7,27 @@ set(NETHOST_RUNTIME_VERSION "8.0.3")
 set(CMAKE_C_COMPILER clang)
 set(CMAKE_CXX_COMPILER clang++)
 set(CMAKE_CXX_STANDARD 26)
-set(OUTPUT_DIR ${CMAKE_CURRENT_LIST_DIR}/out/${CMAKE_BUILD_TYPE}/)
+set(OUTPUT_DIR ${CMAKE_BINARY_DIR}/out/)
 
 function(PrepareDotNetLibraries)
     set(NUGET_BASE "https://www.nuget.org/api/v2/package")
     set(NETHOST_RUNTIME_ARCHIVE "coreclr.${NETHOST_RUNTIME_IDENTIFIER}.${NETHOST_RUNTIME_VERSION}.zip")
 
     file(
+        MAKE_DIRECTORY
+        "${CMAKE_BINARY_DIR}/dep/"
+    )
+    file(
         DOWNLOAD
         "${NUGET_BASE}/runtime.${NETHOST_RUNTIME_IDENTIFIER}.Microsoft.NETCore.DotNetAppHost/${NETHOST_RUNTIME_VERSION}"
-        "${CMAKE_CACHEFILE_DIR}/dep/${NETHOST_RUNTIME_ARCHIVE}"
+        "${CMAKE_BINARY_DIR}/dep/${NETHOST_RUNTIME_ARCHIVE}"
     )
     execute_process(
-        COMMAND ${CMAKE_COMMAND} -E tar xzf "${CMAKE_CACHEFILE_DIR}/dep/${NETHOST_RUNTIME_ARCHIVE}"
-        WORKING_DIRECTORY "${CMAKE_CACHEFILE_DIR}/dep/"
+        COMMAND ${CMAKE_COMMAND} -E tar xzf "${CMAKE_BINARY_DIR}/dep/${NETHOST_RUNTIME_ARCHIVE}"
+        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/dep/"
     )
 
-    set(NETHOST_RUNTIME_DIR "${CMAKE_CACHEFILE_DIR}/dep/runtimes/${NETHOST_RUNTIME_IDENTIFIER}/native")
+    set(NETHOST_RUNTIME_DIR "${CMAKE_BINARY_DIR}/dep/runtimes/${NETHOST_RUNTIME_IDENTIFIER}/native")
 
     include_directories("${NETHOST_RUNTIME_DIR}")
     link_directories("${NETHOST_RUNTIME_DIR}")
